@@ -29,9 +29,9 @@ view: order_items {
     sql: ${TABLE}.order_id ;;
   }
 
-  dimension: sales_price {
+  dimension: sale_price {
     type: number
-    sql: sql: ${TABLE}.sales_price ;;
+    sql:${TABLE}.sale_price ;;
     value_format: "$0.00"
   }
 
@@ -39,7 +39,7 @@ view: order_items {
   # Looker converts dates and timestamps to the specified timeframes within the dimension group.
   measure: total_revenue {
    type: sum
-    sql: ${sales_price} ;;
+    sql: ${sale_price} ;;
     value_format_name: usd
   }
   dimension_group: returned {
@@ -62,12 +62,12 @@ view: order_items {
 
   measure: total_sale_price {
     type: sum
-    sql: ${sales_price} ;;
+    sql: ${sale_price} ;;
   }
 
   measure: average_sale_price {
     type: average
-    sql: ${sales_price} ;;
+    sql: ${sale_price} ;;
   }
 
   measure: count {

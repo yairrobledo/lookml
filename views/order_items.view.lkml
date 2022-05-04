@@ -33,6 +33,7 @@ view: order_items {
     type: number
     sql:${TABLE}.sale_price ;;
     value_format: "$0.00"
+    hidden: yes
   }
 
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.

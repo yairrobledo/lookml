@@ -18,7 +18,8 @@ view: users {
   # This dimension will be called "Age" in Explore.
    dimension: full_name {
     type: string
-    sql: CONCAT(${first_name}, ${last_name}) ;;
+    #sql: ${first_name} || ' ' ||  ${last_name} ;;
+    sql: concat(${first_name},concat(' ',${last_name})) ;;
   }
   dimension: length_full_name {
     type: number

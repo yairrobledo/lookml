@@ -6,7 +6,21 @@ view: order_items {
   drill_fields: [id]
   # This primary key is the unique key for this table in the underlying database.
   # You need to define a primary key in a view in order to join to other views.
-
+  parameter: number_of_results {
+    type: string
+    allowed_value: {
+      label: "Less than 500"
+      value: "< 500"
+    }
+    allowed_value: {
+      label: "Less than 10,000"
+      value: "< 10000"
+    }
+    allowed_value: {
+      label: "All Results"
+      value: "> 0"
+    }
+  }
   dimension: id {
     primary_key: yes
     type: number
@@ -32,8 +46,7 @@ view: order_items {
   dimension: sale_price {
     type: number
     sql:${TABLE}.sale_price ;;
-    value_format: "$0.00"
-    hidden: yes
+    value_format: "$#,##0.00"
   }
 
   # Dates and timestamps can be represented in Looker using a dimension group of type: time.
@@ -41,7 +54,7 @@ view: order_items {
   measure: total_revenue {
    type: sum
     sql: ${sale_price} ;;
-    value_format_name: usd
+    value_format: "$#,##0.00"
   }
   dimension_group: returned {
     type: time
@@ -64,11 +77,13 @@ view: order_items {
   measure: total_sale_price {
     type: sum
     sql: ${sale_price} ;;
+    value_format: "$#,##0.00"
   }
 
   measure: average_sale_price {
     type: average
-    sql: ${sale_price} ;;
+    sql: ${sale_price};;
+    value_format: "$#,##0.00"
   }
 
   measure: count {

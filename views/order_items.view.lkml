@@ -21,6 +21,30 @@ view: order_items {
       value: "> 0"
     }
   }
+  parameter: date_selector {
+    type: date_time
+    description: "Use this field to select a date to filter results by one single Day."
+  }
+
+
+  parameter: item_to_add_up {
+    type: unquoted
+    allowed_value: {
+      label: "Total Sale Price"
+      value: "sale_price"
+    }
+    allowed_value: {
+      label: "Total Cost"
+      value: "cost"
+    }
+  }
+
+  measure: dynamic_sum {
+    type: sum
+    sql: {% parameter item_to_add_up %} ;;
+    value_format_name: "usd"
+  }
+
   dimension: id {
     primary_key: yes
     type: number
@@ -89,5 +113,34 @@ view: order_items {
   measure: count {
     type: count
     drill_fields: [id, orders.id, inventory_items.id]
+  }
+
+  parameter: sale_price_metric_picker {
+    description: "Use with the Sale Price Metric measure"
+    type: unquoted
+    allowed_value: {
+      label: "Total Sale Price" value: "SUM"
+    }
+    allowed_value: {
+      label: "Average Sale Price" value: "AVG"
+    }
+    allowed_value: {
+      label: "Maximum Sale Price" value: "MAX"
+    }
+    allowed_value: {
+      label: "Minimum Sale Price" value: "MIN"
+    } }
+  measure: sale_price_metric {
+
+    description: "Use with the Sale Price Metric Picker filter-only field"
+
+    type: number
+
+    label_from_parameter: sale_price_metric_picker
+
+    sql: {% parameter sale_price_metric_picker %}(${sale_price}) ;;
+
+    value_format_name: usd
+
   }
 }

@@ -36,6 +36,16 @@ view: users {
     sql: ${TABLE}.age ;;
   }
 
+  dimension: state_link {
+    type: string
+    sql: ${TABLE}.state ;;
+    map_layer_name: us_states
+    html: {% if _explore._name == "order_items" %}
+          <a href="/explore/training_ecommerce/order_items?fields=order_items.detail*&f[users.state]= {{ value }}">{{ value }}</a>
+        {% else %}
+          <a href="/explore/training_ecommerce/users?fields=users.detail*&f[users.state]={{ value }}">{{ value }}</a>
+        {% endif %} ;;
+  }
   # A measure is a field that uses a SQL aggregate function. Here are defined sum and average
   # measures for this dimension, but you can also add measures of many different aggregates.
   # Click on the type parameter to see all the options in the Quick Help panel on the right.

@@ -83,8 +83,6 @@ view: order_items {
   dimension_group: returned {
     type: time
     timeframes: [
-      hour,
-      time_of_day,
       raw,
       time,
       date,
